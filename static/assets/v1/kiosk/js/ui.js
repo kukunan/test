@@ -6,8 +6,6 @@ $(function(){
   fn_sildeH(); //세로 슬라이드 스크롤
   fn_programList(); // 프로그램 목록
   fn_layerPop(); //레이어팝업
-  //fn_selectContBox(); //셀렉트 드롭다운 박스
-  //fn_select(); //셀렉트 박스
 
   $(window).resize(function () {
   });
@@ -42,7 +40,11 @@ function fn_scrollGap() {
   if($('.programList > ul').hasScrollBar()){
     console.log(0);
     //$(this).children('li').css('margin-right','2rem'); //안됨
-    $('.programList > ul > li').css('margin-right','2rem'); //됨
+    //$('.programList > ul > li').css('margin-right','2rem'); //됨
+
+    $('.scrollWarp').each(function(){
+      $(this).children('li').css('margin-right','2rem');
+    });
   }
 
   
@@ -217,90 +219,3 @@ function fn_layerPop(){
     $this.closest('.popWrap').addClass('off').removeClass('on');
   });
 }
-
-
-//셀렉트 드롭다운 박스
-function fn_selectContBox(){
-  $(document).on('click','.selectContBox > a',function(){
-    if(!$(this).hasClass('disabled')){
-      $('.selectContBox > a').not($(this)).siblings('.view').stop().slideUp().closest('.selectContBox').removeClass('on');
-      $(this).siblings('.view').stop().slideToggle().closest('.selectContBox').toggleClass('on');
-    }
-    return false;
-  });
-  $(document).on('click','.selectContBox .view a',function(){
-    const html = $(this).html();
-    if(!$(this).hasClass('disabled')){
-      $(this).closest('.view').siblings('a').html(html);
-      $(this).addClass('on').siblings().removeClass('on');
-      $(this).closest('.view').stop().slideUp('fast').closest('.selectContBox').removeClass('on');
-    } 
-    if($(this).hasClass('reset')){
-      $(this).closest('.view').siblings('a').html('바우처를 선택해 주세요');
-    }
-    return false;
-  });
-}
-
-//셀렉트 박스
-function fn_select(){
-  $('.selectBox > select').css({"color": "#888"})
-  $(document).on('change','.selectBox > select',function(){
-    let $index = $(".selectBox > select option").index($(".selectBox > select option:selected"));
-    if($index == 0){
-      $('.selectBox > select').css({"color": "#888"})
-    } else {
-      $('.selectBox > select').css({"color": "#262626"})
-    }
-  });
-}
-
-
-// 로딩바
-const loading = {
-  open: function (set) {
-    let settings = $.extend(
-      {
-        target: $('body'),
-        text: '',
-      },set
-    );
-
-    if(settings.target.prop('tagName') == 'BODY') {
-      $('body').addClass('scrollLock');
-    }
-    
-    settings.target.append(layerPopHtml())
-    setTimeout(function () {
-      settings.target.find('.loadingWrap').addClass('on');
-    }, 10);
-
-
-    function layerPopHtml() {
-      let $layout = '<div id="ladingPop" class="layerPopWrap loadingWrap">';
-      $layout += '<div class="bg"></div>';
-      $layout += '<div class="loadingBox">';
-      $layout += '<div class="loading"><i></i><i></i><i></i><i></i></div>';
-      if (settings.text) {
-        $layout += '<div class="text">' + settings.text + '</div>';
-      }
-      $layout += '</div></div>';
-      return $layout;
-    }
-  },
-  close: function (set) {
-    let settings = $.extend(
-      {
-        target: $('body'),
-      },set
-    );
-    if(settings.target.prop('tagName') == 'BODY') {
-      $('body').removeClass('scrollLock');
-    }
-      
-    settings.target.find('.loadingWrap').removeClass('on');
-    setTimeout(function () {
-      settings.target.find('.loadingWrap').remove();
-    }, 300);
-  }
-};
