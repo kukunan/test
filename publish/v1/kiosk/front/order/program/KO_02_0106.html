@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=3.0,minimum-scale=1.0,user-scalable=yes,viewport-fit=cover,target-densitydpi=medium-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>BMW Driving Center</title>
+    <link href="../../../../../../static/assets/v1/kiosk/css/swiper.min.css" rel="stylesheet" />
+    <link href="../../../../../../static/assets/v1/kiosk/css/simple-keyboard.css" rel="stylesheet" />
+    <link href="../../../../../../static/assets/v1/kiosk/css/common.css" rel="stylesheet" />
+    
+    <script type="text/javascript" src="../../../../../../static/assets/v1/kiosk/js/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" src="../../../../../../static/assets/v1/kiosk/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../../../../../../static/assets/v1/kiosk/js/swiper.js"></script>
+    <script type="text/javascript" src="../../../../../../static/assets/v1/kiosk/js/simple-keyboard.js"></script>
+    <script type="text/javascript" src="../../../../../../static/assets/v1/kiosk/js/ui.js"></script>
+  </head>
+  <body>
+    <div id="wrap">
+      <header id="headerWrap" data-include="../../../layout/header.html"></header>
+      <!-- //헤더영역 -->
+
+      <section id="container">
+        <div class="section">
+          <div class="stepBox">
+            <ul>
+              <li><strong>1</strong>프로그램 목록</li>
+              <li class="active"><strong>2</strong>차량/인원 선택</li>
+              <li class="next"><strong>3</strong>결제</li>
+            </ul>
+          </div>
+
+          <h2 class="guideTit">체험 인원, 차량을 선택해 주세요.</h2>
+
+          <div class="scrollWarp" id="scrollWarp">
+            <div class="info" style="height:550rem; background:#ccc;">
+              
+            </div>
+            <div class="carInfo"></div>
+            <div class=""></div>
+          </div>
+
+          <div class="btnWrap lineTop">
+            <button class="btn sty1"><span>목록으로</span></button>
+            <button class="btn"><span>바로 예약하기</span></button>
+          </div>
+        </div>
+      </section>
+
+      <footer id="footerWrap" data-include="../../../layout/footer.html"></footer>
+      <!-- //푸터 영역 -->
+    </div>
+
+    <!-- 프로그램 안내 팝업 KO_02_0104 -->
+    <!-- <div id="pop1" class="popWrap">
+      <div class="layerPop">
+        <div class="popCon">
+          <p class="fz42">잠깐!</p>
+          <p class="fz30 mt40">
+            해당 프로그램은 <strong>본인 명의의 유효한 운전면허증 확인이 불가능할 경우, 참여가 제한</strong>될 수 있습니다.<br>
+            (외국 국적 참가자는 유효한 자국 운전면허증, 국제운전면허증, 여권을 필히 소지해야 합니다.)
+          </p>
+
+          <div class="btnWrap flexColumn mt50">
+            <button class="btn sty1 h110"><span>동의 안함</span></button>
+            <button class="btn sty2 h110"><span>동의 후 진행</span></button>
+          </div>
+        </div>
+
+        <a href="javascript:;" class="btnClosePop">닫기</a>
+      </div>
+    </div> -->
+    <!-- //프로그램 안내 팝업 KO_02_0104 -->
+
+    <script>
+      var swiper_pop = new Swiper('.seriesBox', {				
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        //slidesPerGroup : 10,
+        slidesPerGroupAuto : true, //Dafault: false
+        //slidesPerGroupSkip : 1, //Dafault: 0
+        //loopFillGroupWithBlank : true, // 그룹수가 맞지 않을 경우 빈칸으로 메우기
+        //loop: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+
+      //fn_scrollGap1();
+      function fn_scrollGap1() {
+        $.fn.hasScrollBar = function() {
+          return this.get(0).scrollHeight > this.innerHeight();
+        }
+        if($('.scrollWarp').length) { //안됨
+          console.log(1);
+          $('.scrollWarp').each(function(){
+            if($('.scrollWarp').hasScrollBar()){
+              $('.scrollWarp').children().css('margin-right','2rem'); 
+            } 
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

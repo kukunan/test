@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=3.0,minimum-scale=1.0,user-scalable=yes,viewport-fit=cover,target-densitydpi=medium-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>BMW Driving Center</title>
+    <link href="../../../../../static/assets/v1/kiosk/css/swiper.min.css" rel="stylesheet" />
+    <link href="../../../../../static/assets/v1/kiosk/css/simple-keyboard.css" rel="stylesheet" />
+    <link href="../../../../../static/assets/v1/kiosk/css/common.css" rel="stylesheet" />
+    
+    <script type="text/javascript" src="../../../../../static/assets/v1/kiosk/js/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript" src="../../../../../static/assets/v1/kiosk/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../../../../../static/assets/v1/kiosk/js/swiper.js"></script>
+    <script type="text/javascript" src="../../../../../static/assets/v1/kiosk/js/simple-keyboard.js"></script>
+    <script type="text/javascript" src="../../../../../static/assets/v1/kiosk/js/ui.js"></script>
+  </head>
+  <body>
+    <div id="wrapper" style="margin:2em">
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <form>
+            <div class="row g-3 align-items-center mb-3">
+              <div class="col-10 input-group">
+                <input type="text" class="form-control input" id="firstname" placeholder="First Name" aria-label="First Name" aria-describedby="button-addon2" required tabindex="1">
+                <!-- <button class="btn btn-outline-secondary keyboard-clear" type="button" id="button-addon2" data-target="firstname">Clear</button> -->
+              </div>
+            </div>
+            <div class="row g-3 align-items-center mb-3">
+              <div class="col-10 input-group">
+                <input type="text" class="form-control input" id="surname" placeholder="Surname" aria-label="Surname" aria-describedby="button-addon3" required>
+                <!-- <button class="btn btn-outline-secondary keyboard-clear" type="button" id="button-addon3" data-target="surname">Clear</button> -->
+              </div>
+            </div>
+
+            <div class="simple-keyboard"></div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(function(){
+        let selectedInput = "firstname";
+        const keyboard = getKeyboard();
+
+        function getKeyboardOptions(mode) {
+          let keyboardOptions;
+          
+          switch (mode) {
+            case "simple":
+              keyboardOptions = {
+                theme: "simple-keyboard hg-theme-default hg-layout-default",
+                layout: {
+                  'default': [
+                    ' 1 2 3 4 5 6 7 8 9 0 - {bksp}',
+                    '{tab} Q W E R T Y U I O P ',
+                    '{lock} A S D F G H J K L \' {enter}',
+                    '{shift} Z X C V B N M . / {shift}',
+                    '.com @ {space}'
+                  ],
+                  'shift': [
+                    ' 1 2 3 4 5 6 7 8 9 0 - {bksp}',
+                    '{tab} q w e r t y u i o p ',
+                    '{lock} a s d f g h j k l \' {enter}',
+                    '{shift} z x c v b n m . / {shift}',
+                    '.com @ {space}'
+                  ]
+                }
+              };
+            break;
+
+            case "numeric":
+              keyboardOptions = {
+                theme: "simple-keyboard hg-theme-default hg-layout-numeric numeric-theme",
+                layout: {
+                  default: ["1 2 3", "4 5 6", "7 8 9", " 0 _", "{bksp}"],
+                  //shift: ["! / #", "$ % ^", "& * (", "{shift} ) +", "{bksp}"]
+                }
+              };
+            break;
+
+            default:
+              keyboardOptions = { };
+          }
+            
+          return keyboardOptions;
+        }
+
+        function onInit(keyboard) {}
+
+        function onInputFocus(event){
+          const inputName = event.target.id;
+          selectedInput = inputName;
+          keyboard.setOptions({ inputName });
+        }
+
+        function onInputChange(event){
+          keyboard.setInput(event.target.value, selectedInput);
+        }
+
+
+        function onChange(input){
+          document.querySelector(`#${selectedInput}`).value = input;
+        }
+
+        function onKeyPress(button) {
+          console.log("Button pressed", button);
+          // Handle the shift and caps lock buttons
+          if (button === "{shift}" || button === "{lock}") handleShift();
+        }
+
+
+        function handleShift() {
+          let currentLayout = keyboard.options.layoutName;
+          let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+          keyboard.setOptions({
+            layoutName: shiftToggle
+          });
+        }
+
+        function clearInput(inputName) {
+          console.log('Form Clear button clicked', inputName);
+          document.querySelector(`#${inputName}`).value = "";
+          selectedInput = inputName;
+          keyboard.clearInput(inputName);
+          keyboard.setOptions({ inputName });
+        }
+
+        function getKeyboard(mode = "simple"){
+          const Keyboard = window.SimpleKeyboard.default;
+          const { theme, layout } = getKeyboardOptions(mode);
+          
+          return new Keyboard({
+            onChange,
+            onKeyPress,
+            onInit,
+            inputName: selectedInput,
+            theme,
+            layout,
+          });
+        }
+
+
+        document.querySelectorAll(".input").forEach(function (input){
+          input.addEventListener("focus", onInputFocus);
+          // Optional: Use following if you want to track input changes made without simple-keyboard
+          input.addEventListener("input", onInputChange);
+        });
+
+        document.querySelectorAll(".keyboard-clear").forEach(button => {
+          const targetInput = button.getAttribute("data-target");
+          
+          button.onclick = () => {
+            console.log(button.id, targetInput);
+            clearInput(targetInput);
+          };
+        });
+      });
+    </script>
+  </body>
+</html>
