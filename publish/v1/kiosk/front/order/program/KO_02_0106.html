@@ -33,12 +33,38 @@
 
           <h2 class="guideTit">체험 인원, 차량을 선택해 주세요.</h2>
 
-          <div class="scrollWarp" id="scrollWarp">
-            <div class="info" style="height:550rem; background:#ccc;">
-              
+          <div class="scrollWarp mt35">
+            <div class="reserveBox">
+              <div class="left">
+                <p>체험정보</p>
+                <p class="productName"><span>M/JCW Intensive</span></p>
+                <p>09:40 | 30분</p>
+              </div>
+              <div class="right">
+                <p>체험인원</p>
+                <div class="countNum">
+                  <button class="btnMinus"><span>빼기</span></button>
+                  <p class="count"><span>1</span>명</p>
+                  <button class="btnPlus"><span>더하기</span></button>
+                </div>
+                <p>잔여 2석</p>
+              </div>
             </div>
-            <div class="carInfo"></div>
-            <div class=""></div>
+            <div class="carBox">
+              <div class="info">
+                <p class="txt">차량정보 | 80,000원</p>
+                <button class="btn sty1 h90"><span>차량 변경하기</span></button>
+              </div>
+              <div class="imgBox">
+                <img src="../../../../../../static/assets/v1/kiosk/images/sample/img_car2.png" alt="">
+              </div>
+              <p class="series">BMW 3series</p>
+              <p class="name">BMW 32Oi M Sport Package</p>
+            </div>
+            <dl class="paymentAmount">
+              <dt>결제 예정 금액</dt>
+              <dd>80,000원</dd>
+            </dl>
           </div>
 
           <div class="btnWrap lineTop">
@@ -51,57 +77,5 @@
       <footer id="footerWrap" data-include="../../../layout/footer.html"></footer>
       <!-- //푸터 영역 -->
     </div>
-
-    <!-- 프로그램 안내 팝업 KO_02_0104 -->
-    <!-- <div id="pop1" class="popWrap">
-      <div class="layerPop">
-        <div class="popCon">
-          <p class="fz42">잠깐!</p>
-          <p class="fz30 mt40">
-            해당 프로그램은 <strong>본인 명의의 유효한 운전면허증 확인이 불가능할 경우, 참여가 제한</strong>될 수 있습니다.<br>
-            (외국 국적 참가자는 유효한 자국 운전면허증, 국제운전면허증, 여권을 필히 소지해야 합니다.)
-          </p>
-
-          <div class="btnWrap flexColumn mt50">
-            <button class="btn sty1 h110"><span>동의 안함</span></button>
-            <button class="btn sty2 h110"><span>동의 후 진행</span></button>
-          </div>
-        </div>
-
-        <a href="javascript:;" class="btnClosePop">닫기</a>
-      </div>
-    </div> -->
-    <!-- //프로그램 안내 팝업 KO_02_0104 -->
-
-    <script>
-      var swiper_pop = new Swiper('.seriesBox', {				
-        slidesPerView: 'auto',
-        spaceBetween: 20,
-        //slidesPerGroup : 10,
-        slidesPerGroupAuto : true, //Dafault: false
-        //slidesPerGroupSkip : 1, //Dafault: 0
-        //loopFillGroupWithBlank : true, // 그룹수가 맞지 않을 경우 빈칸으로 메우기
-        //loop: true,
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-      });
-
-      //fn_scrollGap1();
-      function fn_scrollGap1() {
-        $.fn.hasScrollBar = function() {
-          return this.get(0).scrollHeight > this.innerHeight();
-        }
-        if($('.scrollWarp').length) { //안됨
-          console.log(1);
-          $('.scrollWarp').each(function(){
-            if($('.scrollWarp').hasScrollBar()){
-              $('.scrollWarp').children().css('margin-right','2rem'); 
-            } 
-          });
-        }
-      }
-    </script>
   </body>
 </html>
