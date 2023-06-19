@@ -12,7 +12,7 @@ $(function(){
 });
 
 $(window).on('load', function(){
-  fn_scrollGap();
+  //fn_scrollGap();
 });
 
 //header,footer
@@ -36,27 +36,23 @@ function fn_scrollGap() {
     }
   //})($);
 
-  // 스크롤바가 있을 경우 처리
-  if($('.programList > ul').hasScrollBar()){
-    console.log(0);
-    //$(this).children('li').css('margin-right','2rem'); //안됨
-    //$('.programList > ul > li').css('margin-right','2rem'); //됨
-
-    $('.scrollWarp').each(function(){
-      $(this).children('li').css('margin-right','2rem');
+  // 스크롤바가 있을 경우 우측 여백
+  if($('.programList > ul').length) {
+    //console.log(0);
+    $('.programList > ul').each(function(){
+      if($(this).hasScrollBar()){
+        $(this).children().css('margin-right','2rem'); 
+      } 
     });
   }
 
-  
   if($('.scrollWarp').length) {
-    console.log(1);
-      
+    //console.log(1);
     $('.scrollWarp').each(function(){
-      if($('.scrollWarp').hasScrollBar()){
-        $('.scrollWarp').children().css('margin-right','2rem'); 
+      if($(this).hasScrollBar()){
+        $(this).children().css('margin-right','2rem'); 
       } 
     });
-    //$('.scrollWarp').css('padding-right','2rem'); 
   }
 }
 
